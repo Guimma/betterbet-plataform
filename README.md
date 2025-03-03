@@ -20,6 +20,9 @@ Um dashboard para visualização e análise de apostas esportivas, com foco em e
 ## Como Executar
 
 1. Clone o repositório
+   ```
+   git clone https://github.com/Guimma/betterbet-plataform.git
+   ```
 2. Instale as dependências:
    ```
    npm install
@@ -28,12 +31,16 @@ Um dashboard para visualização e análise de apostas esportivas, com foco em e
    ```
    npm start
    ```
+   ou usando o serve:
+   ```
+   npx serve -s .
+   ```
 4. Acesse o aplicativo em [http://localhost:3000](http://localhost:3000)
 
 ## Estrutura do Projeto
 
 ```
-betterbet-dashboard/
+betterbet-plataform/
 ├── public/
 │   ├── index.html
 │   └── manifest.json
@@ -62,4 +69,4 @@ betterbet-dashboard/
 - Implementação de backend para dados reais
 - Autenticação de usuários
 - Mais modelos de previsão
-- Filtros avançados para análise de dados 
+- Filtros avançados para análise de dados
