@@ -2,6 +2,10 @@
 
 Um dashboard para visualização e análise de apostas esportivas, com foco em estatísticas e previsões de resultados.
 
+## Demo Online
+
+Acesse a versão online do projeto: [BetterBet Dashboard](https://guimma.github.io/betterbet-plataform/)
+
 ## Funcionalidades
 
 - Dashboard com visão geral das estatísticas
@@ -16,6 +20,7 @@ Um dashboard para visualização e análise de apostas esportivas, com foco em e
 - React Router v6
 - Recharts para visualização de dados
 - CSS puro para estilização
+- GitHub Pages para hospedagem
 
 ## Como Executar
 
