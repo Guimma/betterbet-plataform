@@ -34,6 +34,10 @@ jobs:
         run: |
           touch build/.nojekyll
           echo "guimma.github.io/betterbet-plataform" > build/CNAME
+          cp public/404.html build/
+          ls -la build/
+          echo "Conteúdo do index.html:"
+          cat build/index.html | grep -i "src="
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4
