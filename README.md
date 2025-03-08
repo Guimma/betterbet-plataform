@@ -40,18 +40,20 @@ Acesse a versão online do projeto: [BetterBet Dashboard](https://guimma.github.
 
 ## Deploy para o GitHub Pages
 
-Este projeto está configurado para ser servido diretamente da branch main do GitHub Pages. Para atualizar o site:
+Este projeto utiliza GitHub Actions para automatizar o deploy no GitHub Pages. O processo funciona da seguinte forma:
 
-1. Faça suas alterações na branch main
-2. Execute o build do projeto:
-   ```
-   npm run build
-   ```
-3. Copie o conteúdo da pasta build para a raiz do projeto 
-4. Faça commit e push das alterações para a branch main
-5. O GitHub Pages irá servir o conteúdo automaticamente da branch main
+1. Todo código fonte é mantido na branch `main`
+2. Quando você faz push para a branch `main`, o GitHub Actions é acionado automaticamente
+3. O workflow constrói a aplicação e envia os arquivos compilados para a branch `gh-pages`
+4. O GitHub Pages serve o conteúdo a partir da branch `gh-pages`
 
-Certifique-se de que as configurações do GitHub Pages no repositório estão definidas para usar a branch main.
+Para atualizar o site, simplesmente:
+
+1. Faça suas alterações na branch `main`
+2. Commit e push para o GitHub: `git push origin main`
+3. O GitHub Actions fará o resto automaticamente!
+
+**Nota:** Certifique-se de que as configurações do GitHub Pages no repositório estão definidas para usar a branch `gh-pages`.
 
 ## Estrutura do Projeto
 
