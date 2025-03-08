@@ -40,13 +40,18 @@ Acesse a versão online do projeto: [BetterBet Dashboard](https://guimma.github.
 
 ## Deploy para o GitHub Pages
 
-Para implantar o projeto no GitHub Pages:
+Este projeto está configurado para ser servido diretamente da branch main do GitHub Pages. Para atualizar o site:
 
-```
-npm run deploy
-```
+1. Faça suas alterações na branch main
+2. Execute o build do projeto:
+   ```
+   npm run build
+   ```
+3. Copie o conteúdo da pasta build para a raiz do projeto 
+4. Faça commit e push das alterações para a branch main
+5. O GitHub Pages irá servir o conteúdo automaticamente da branch main
 
-Isso criará uma build otimizada e enviará os arquivos para o branch gh-pages, configurando o site para ser acessado em https://guimma.github.io/betterbet-plataform/.
+Certifique-se de que as configurações do GitHub Pages no repositório estão definidas para usar a branch main.
 
 ## Estrutura do Projeto
 
