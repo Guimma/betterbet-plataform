@@ -30,6 +30,11 @@ jobs:
         env:
           CI: false # Permite que o build continue mesmo com warnings do ESLint
 
+      - name: Create necessary files
+        run: |
+          touch build/.nojekyll
+          echo "guimma.github.io/betterbet-plataform" > build/CNAME
+
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4
         with:
