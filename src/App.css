@@ -316,4 +316,15 @@ body {
 
 .charts-section {
   margin-bottom: 2rem;
+}
+
+.error-banner {
+  background-color: #f8d7da;
+  color: #721c24;
+  padding: 10px 15px;
+  margin: 10px;
+  border-radius: 4px;
+  text-align: center;
+  font-weight: 500;
+  border-left: 4px solid #f5c6cb;
 } 

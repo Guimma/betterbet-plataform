@@ -7,7 +7,10 @@ import Predictions from './components/Predictions';
 import MatchDetail from './components/MatchDetail';
 import './App.css';
 
-// Dados simulados (na aplicação real, estes viriam de um backend)
+// Importando o serviço do Google Sheets
+import { fetchAllData } from './services/sheetsService';
+
+// Importando os dados estáticos como fallback caso a API falhe
 import modelsData from './data/models';
 import matchesData from './data/matches';
 import predictionsData from './data/predictions';
@@ -17,15 +20,39 @@ function App() {
   const [matches, setMatches] = useState([]);
   const [predictions, setPredictions] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    // Simula carregamento de dados de API
-    setTimeout(() => {
-      setModels(modelsData);
-      setMatches(matchesData);
-      setPredictions(predictionsData);
-      setLoading(false);
-    }, 1000);
+    // Função para carregar os dados do Google Sheets
+    async function loadData() {
+      try {
+        setLoading(true);
+        setError(null);
+        
+        // Busca os dados do Google Sheets
+        const data = await fetchAllData();
+        
+        // Atualiza o estado com os dados obtidos
+        setModels(data.models);
+        setMatches(data.matches);
+        setPredictions(data.predictions);
+        
+        setLoading(false);
+      } catch (error) {
+        console.error('Erro ao carregar dados:', error);
+        setError('Não foi possível carregar os dados da planilha. Usando dados de fallback.');
+        
+        // Usa os dados estáticos como fallback em caso de erro
+        setModels(modelsData);
+        setMatches(matchesData);
+        setPredictions(predictionsData);
+        
+        setLoading(false);
+      }
+    }
+
+    // Chama a função para carregar os dados
+    loadData();
   }, []);
 
   if (loading) {
@@ -51,6 +78,12 @@ function App() {
             <Link to="/predictions">Previsões</Link>
           </nav>
         </header>
+
+        {error && (
+          <div className="error-banner">
+            <p>{error}</p>
+          </div>
+        )}
 
         <main className="main-content">
           <Routes>
