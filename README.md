@@ -36,11 +36,17 @@ Acesse a versão online do projeto: [BetterBet Dashboard](https://guimma.github.
    ```
    npm start
    ```
-   ou usando o serve:
-   ```
-   npx serve -s .
-   ```
 4. Acesse o aplicativo em [http://localhost:3000](http://localhost:3000)
+
+## Deploy para o GitHub Pages
+
+Para implantar o projeto no GitHub Pages:
+
+```
+npm run deploy
+```
+
+Isso criará uma build otimizada e enviará os arquivos para o branch gh-pages, configurando o site para ser acessado em https://guimma.github.io/betterbet-plataform/.
 
 ## Estrutura do Projeto
 
