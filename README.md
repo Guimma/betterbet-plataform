@@ -88,3 +88,8 @@ betterbet-plataform/
 - Autenticação de usuários
 - Mais modelos de previsão
 - Filtros avançados para análise de dados
+
+
+
+ 
+ 
