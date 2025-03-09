@@ -11,10 +11,13 @@
 
 # credentials
 /src/config/credentials.json
+.env
+.env.local
+.env.development
+.env.production
 
 # misc
 .DS_Store
-.env.local
 .env.development.local
 .env.test.local
 .env.production.local

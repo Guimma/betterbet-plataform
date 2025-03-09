@@ -327,4 +327,133 @@ body {
   text-align: center;
   font-weight: 500;
   border-left: 4px solid #f5c6cb;
+}
+
+.error-details-button {
+  background-color: #721c24;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  margin-top: 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.8rem;
+}
+
+.error-details-button:hover {
+  background-color: #5a171c;
+}
+
+/* Estilos para autenticação Google */
+.google-auth {
+  margin: 15px 0;
+  display: flex;
+  justify-content: center;
+}
+
+.auth-button {
+  padding: 10px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-button {
+  background-color: #4285f4;
+  color: white;
+  border: none;
+}
+
+.login-button:hover {
+  background-color: #357ae8;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.logout-button {
+  background-color: #f1f1f1;
+  color: #666;
+  border: 1px solid #ddd;
+  margin-left: 10px;
+}
+
+.logout-button:hover {
+  background-color: #e4e4e4;
+}
+
+.user-profile {
+  display: flex;
+  align-items: center;
+}
+
+.user-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.user-name {
+  font-size: 14px;
+  color: #333;
+  margin-right: 15px;
+}
+
+.auth-error {
+  color: #d32f2f;
+  padding: 10px;
+  border: 1px solid #ffcdd2;
+  background-color: #ffebee;
+  border-radius: 4px;
+  margin: 10px 0;
+  text-align: center;
+}
+
+.auth-error button {
+  background-color: #d32f2f;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  margin-top: 8px;
+  cursor: pointer;
+}
+
+.auth-error button:hover {
+  background-color: #b71c1c;
+}
+
+/* Banner de autenticação requerida */
+.auth-required-banner {
+  background-color: #fff3cd;
+  color: #856404;
+  padding: 15px;
+  margin: 15px 0;
+  border: 1px solid #ffeeba;
+  border-radius: 4px;
+  text-align: center;
+}
+
+/* Ajuste para o contêiner de autenticação na barra de navegação */
+.auth-container {
+  margin-left: auto;
+}
+
+/* Ajustes responsivos para o cabeçalho */
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .nav {
+    margin: 10px 0;
+  }
+  
+  .auth-container {
+    margin: 10px 0;
+  }
 } 

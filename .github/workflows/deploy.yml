@@ -29,6 +29,10 @@ jobs:
         run: npm run build # Executa o script de build definido no package.json
         env:
           CI: false # Permite que o build continue mesmo com warnings do ESLint
+          # Variáveis de ambiente do Google Sheets
+          REACT_APP_SPREADSHEET_ID: ${{ secrets.REACT_APP_SPREADSHEET_ID }}
+          REACT_APP_GOOGLE_API_KEY: ${{ secrets.REACT_APP_GOOGLE_API_KEY }}
+          REACT_APP_GOOGLE_CLIENT_ID: ${{ secrets.REACT_APP_GOOGLE_CLIENT_ID }}
 
       - name: Create necessary files
         run: |
