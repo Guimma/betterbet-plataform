@@ -1,5 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { signIn, signOut, isUserAuthenticated, initializeGoogleApi } from '../services/googleAuthService';
+import Button from '@mui/joy/Button';
+import CircularProgress from '@mui/joy/CircularProgress';
+import Typography from '@mui/joy/Typography';
+import Box from '@mui/joy/Box';
+import Avatar from '@mui/joy/Avatar';
+import IconButton from '@mui/joy/IconButton';
+import LogoutRounded from '@mui/icons-material/LogoutRounded';
+import Alert from '@mui/joy/Alert';
+import ReportIcon from '@mui/icons-material/Report';
 
 /**
  * Componente de autenticação com o Google
@@ -73,48 +82,69 @@ const GoogleAuth = ({ onAuthChange }) => {
   };
 
   if (isLoading) {
-    return <div>Carregando...</div>;
+    return <CircularProgress size="sm" />;
   }
 
   if (error) {
     return (
-      <div className="auth-error">
-        <p>{error}</p>
-        <button onClick={() => setError(null)}>Tentar novamente</button>
-      </div>
+      <Alert
+        variant="soft" 
+        color="danger"
+        size="sm"
+        startDecorator={<ReportIcon />}
+        endDecorator={
+          <Button 
+            size="sm" 
+            variant="soft" 
+            color="danger" 
+            onClick={() => setError(null)}
+          >
+            Tentar novamente
+          </Button>
+        }
+      >
+        {error}
+      </Alert>
     );
   }
 
   return (
-    <div className="google-auth">
+    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
       {isSignedIn ? (
-        <div className="user-profile">
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
           {userData && (
             <>
-              <img 
+              <Avatar 
                 src={userData.imageUrl} 
-                alt={userData.name} 
-                className="user-avatar" 
+                alt={userData.name}
+                size="sm"
               />
-              <span className="user-name">{userData.name}</span>
+              <Typography level="body-sm" sx={{ display: { xs: 'none', sm: 'block' } }}>
+                {userData.name}
+              </Typography>
+              <IconButton
+                variant="soft"
+                color="neutral"
+                size="sm"
+                onClick={handleSignOut}
+                title="Sair"
+              >
+                <LogoutRounded fontSize="small" />
+              </IconButton>
             </>
           )}
-          <button 
-            onClick={handleSignOut}
-            className="auth-button logout-button"
-          >
-            Sair
-          </button>
-        </div>
+        </Box>
       ) : (
-        <button 
+        <Button 
           onClick={handleSignIn}
-          className="auth-button login-button"
+          variant="solid"
+          color="primary"
+          size="sm"
         >
           Login com Google
-        </button>
+        </Button>
       )}
-    </div>
+    </Box>
   );
 };
 

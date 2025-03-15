@@ -1,13 +1,56 @@
 :root {
-  --primary-color: #2c3e50;
-  --secondary-color: #3498db;
-  --accent-color: #e74c3c;
-  --background-color: #f5f7fa;
-  --text-color: #333;
-  --border-color: #ddd;
+  --primary-color: #2767e2; /* Bright blue from logo */
+  --primary-dark: #0c2544; /* Dark blue from logo */
+  --accent-color: #ff0000; /* Red from logo */
   --success-color: #27ae60;
   --warning-color: #f39c12;
+  --danger-color: #ff0000;
+  --bg-color: #f5f7fa;
+  --surface-color: #ffffff;
+  --text-primary: #333333;
+  --text-secondary: #777777;
+  --border-color: #e1e1e1;
+  --background-color: #f5f7fa;
+  --text-color: #333;
   --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Modo escuro - será aplicado quando o usuário selecionar o modo escuro no sistema */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --primary-color: #2767e2;
+    --primary-dark: #0f2747;
+    --accent-color: #ff3333;
+    --success-color: #2ecc71;
+    --warning-color: #f1c40f;
+    --danger-color: #ff3333;
+    --bg-color: #0c1c32;
+    --surface-color: #13243d;
+    --text-primary: #ffffff;
+    --text-secondary: #c8d6e5;
+    --border-color: #1a2c4a;
+    --background-color: #0c1c32;
+    --text-color: #ffffff;
+    --card-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  }
+}
+
+/* Este seletor será aplicado quando o tema escuro for selecionado na aplicação */
+[data-joy-color-scheme="dark"] {
+  --primary-color: #2767e2;
+  --primary-dark: #0f2747;
+  --accent-color: #ff3333;
+  --success-color: #2ecc71;
+  --warning-color: #f1c40f;
+  --danger-color: #ff3333;
+  --bg-color: #0c1c32;
+  --surface-color: #13243d;
+  --text-primary: #ffffff;
+  --text-secondary: #c8d6e5;
+  --border-color: #1a2c4a;
+  --background-color: #0c1c32;
+  --text-color: #ffffff;
+  --card-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 * {
@@ -18,9 +61,10 @@
 
 body {
   font-family: 'Roboto', sans-serif;
-  background-color: var(--background-color);
-  color: var(--text-color);
-  line-height: 1.6;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--text-primary);
+  background-color: var(--bg-color);
 }
 
 .app {
@@ -39,9 +83,24 @@ body {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.logo h1 {
-  font-size: 1.8rem;
-  font-weight: 700;
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: all 0.3s ease;
+}
+
+.logo-icon {
+  height: 40px;
+  width: auto;
+  transition: all 0.3s ease;
+}
+
+.logo-name {
+  height: 25px;
+  width: auto;
+  margin-left: 8px;
+  transition: all 0.3s ease;
 }
 
 .nav {
@@ -50,16 +109,17 @@ body {
 }
 
 .nav a {
-  color: white;
   text-decoration: none;
+  color: var(--text-primary);
   font-weight: 500;
-  padding: 0.5rem 0;
-  border-bottom: 2px solid transparent;
-  transition: border-color 0.3s ease;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  transition: all 0.3s ease;
 }
 
 .nav a:hover, .nav a.active {
-  border-bottom: 2px solid var(--secondary-color);
+  color: var(--primary-color);
+  background-color: rgba(39, 103, 226, 0.1); /* Primary color with transparency */
 }
 
 .main-content {
@@ -79,20 +139,20 @@ body {
 }
 
 .card {
-  background: white;
+  background-color: var(--surface-color);
   border-radius: 8px;
   box-shadow: var(--card-shadow);
-  padding: 1.5rem;
   margin-bottom: 1.5rem;
+  overflow: hidden;
 }
 
 .card-header {
+  padding: 1rem;
+  border-bottom: 1px solid var(--border-color);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1rem;
-  border-bottom: 1px solid var(--border-color);
-  padding-bottom: 0.5rem;
+  background-color: var(--surface-color);
 }
 
 .card-header h2 {
@@ -107,15 +167,23 @@ body {
 }
 
 .data-table th, .data-table td {
-  padding: 0.75rem;
+  padding: 0.75rem 1rem;
   text-align: left;
   border-bottom: 1px solid var(--border-color);
 }
 
 .data-table th {
-  background-color: #f1f5f9;
   font-weight: 600;
-  color: var(--primary-color);
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+}
+
+.data-table tbody tr:hover {
+  background-color: rgba(39, 103, 226, 0.05); /* Primary color with low opacity */
+}
+
+[data-joy-color-scheme="dark"] .data-table tbody tr:hover {
+  background-color: rgba(39, 103, 226, 0.15); /* Slightly more opacity in dark mode */
 }
 
 .data-table tbody tr:hover {
@@ -137,6 +205,11 @@ body {
 
 .badge-warning {
   background-color: var(--warning-color);
+  color: white;
+}
+
+.badge-danger {
+  background-color: var(--danger-color);
   color: white;
 }
 
@@ -301,17 +374,17 @@ body {
 
 .filter-buttons button {
   padding: 0.5rem 1rem;
-  border: 1px solid var(--border-color);
-  background-color: white;
+  border: none;
+  background-color: var(--surface-color);
+  color: var(--text-primary);
   cursor: pointer;
   border-radius: 4px;
   transition: all 0.3s ease;
 }
 
 .filter-buttons button:hover, .filter-buttons button.active {
-  background-color: var(--secondary-color);
+  background-color: var(--primary-color);
   color: white;
-  border-color: var(--secondary-color);
 }
 
 .charts-section {
@@ -319,14 +392,16 @@ body {
 }
 
 .error-banner {
-  background-color: #f8d7da;
-  color: #721c24;
-  padding: 10px 15px;
-  margin: 10px;
+  background-color: rgba(255, 51, 51, 0.1);
+  border-left: 4px solid var(--danger-color);
+  padding: 1rem;
+  margin-bottom: 1rem;
   border-radius: 4px;
-  text-align: center;
-  font-weight: 500;
-  border-left: 4px solid #f5c6cb;
+  color: var(--text-primary);
+}
+
+[data-joy-color-scheme="dark"] .error-banner {
+  background-color: rgba(255, 51, 51, 0.2);
 }
 
 .error-details-button {
@@ -363,25 +438,23 @@ body {
 }
 
 .login-button {
-  background-color: #4285f4;
+  background-color: var(--primary-color);
   color: white;
   border: none;
 }
 
 .login-button:hover {
-  background-color: #357ae8;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  background-color: var(--primary-dark);
 }
 
 .logout-button {
-  background-color: #f1f1f1;
-  color: #666;
-  border: 1px solid #ddd;
-  margin-left: 10px;
+  background-color: transparent;
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
 }
 
 .logout-button:hover {
-  background-color: #e4e4e4;
+  background-color: rgba(255, 0, 0, 0.1); /* Red with transparency */
 }
 
 .user-profile {
@@ -428,32 +501,48 @@ body {
 
 /* Banner de autenticação requerida */
 .auth-required-banner {
-  background-color: #fff3cd;
-  color: #856404;
-  padding: 15px;
-  margin: 15px 0;
-  border: 1px solid #ffeeba;
+  background-color: rgba(39, 103, 226, 0.1);
+  border-left: 4px solid var(--primary-color);
+  padding: 1rem;
+  margin-bottom: 1rem;
   border-radius: 4px;
   text-align: center;
 }
 
+[data-joy-color-scheme="dark"] .auth-required-banner {
+  background-color: rgba(39, 103, 226, 0.2);
+}
+
 /* Ajuste para o contêiner de autenticação na barra de navegação */
 .auth-container {
-  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 /* Ajustes responsivos para o cabeçalho */
 @media (max-width: 768px) {
   .header {
+    padding: 1rem;
     flex-direction: column;
-    align-items: center;
   }
-  
+
   .nav {
-    margin: 10px 0;
+    margin-top: 1rem;
   }
   
+  .logo-icon {
+    height: 36px;
+  }
+  
+  .logo-name {
+    height: 22px;
+  }
+
   .auth-container {
-    margin: 10px 0;
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    width: 100%;
   }
 } 

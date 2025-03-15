@@ -124,9 +124,10 @@ async function getCorrectSheetName(sheetName) {
 }
 
 /**
- * Converte dados da API para formato de objetos
- * @param {Array} values Valores retornados pela API
- * @returns {Array} Array de objetos com chave/valor
+ * Converte os valores da planilha em um array de objetos
+ * @param {Array} values - Valores da planilha
+ * @returns {Array} - Array de objetos
+ * @private Função interna, não utilizada diretamente
  */
 function convertToObjects(values) {
   if (!values || !Array.isArray(values) || values.length < 2) {
@@ -138,16 +139,33 @@ function convertToObjects(values) {
     const headers = values[0];
     const rows = values.slice(1);
     
-    return rows.map(row => {
+    logDebug('Convertendo dados para objetos. Headers:', headers);
+    logDebug('Número de linhas a processar:', rows.length);
+    
+    const result = rows.map((row, rowIndex) => {
       const item = {};
       headers.forEach((header, index) => {
         // Verifica se o header é válido antes de usar como chave
         if (header && typeof header === 'string') {
-          item[header] = index < row.length ? row[index] : '';
+          const value = index < row.length ? row[index] : '';
+          
+          // Verifica se o valor é '999' ou 999, que pode indicar um valor limitado
+          if (value === '999' || value === 999) {
+            console.warn(`Valor possivelmente limitado encontrado na planilha: ${header}:`, value, 'na linha:', rowIndex + 2);
+          }
+          
+          item[header] = value;
         }
       });
       return item;
     });
+    
+    // Log das primeiras linhas para debug
+    if (result.length > 0) {
+      logDebug('Amostra dos dados convertidos:', result.slice(0, 2));
+    }
+    
+    return result;
   } catch (error) {
     logError('Erro ao converter dados para objetos:', error);
     return [];
@@ -186,38 +204,90 @@ export async function fetchSheetData(sheetName) {
       return [];
     }
     
-    // Formato correto do range: "NomeDaAba!A1:Z1000"
-    const range = `${correctSheetName}!A1:Z1000`;
+    // Implementação de paginação para buscar todos os dados
+    let allRows = [];
+    let headers = null;
+    let hasMoreData = true;
+    let startRow = 1;
+    const batchSize = 5000; // Tamanho de cada lote
     
-    logDebug(`Buscando dados do range: ${range}`);
+    logDebug(`Iniciando busca paginada para a aba "${correctSheetName}"`);
     
-    const response = await window.gapi.client.sheets.spreadsheets.values.get({
-      spreadsheetId: SPREADSHEET_ID,
-      range: range
-    });
-    
-    logDebug(`Resposta para ${range}: Status ${response.status}`);
-    
-    if (!response || response.status !== 200) {
-      throw new Error(`Erro ao buscar dados: ${response ? response.status : 'Resposta vazia'}`);
+    // Loop para buscar dados em lotes
+    while (hasMoreData) {
+      // Formato do range com paginação: "NomeDaAba!A{startRow}:Z{startRow+batchSize-1}"
+      const endRow = startRow + batchSize - 1;
+      const range = `${correctSheetName}!A${startRow}:Z${endRow}`;
+      
+      logDebug(`Buscando lote de dados: ${range}`);
+      
+      const response = await window.gapi.client.sheets.spreadsheets.values.get({
+        spreadsheetId: SPREADSHEET_ID,
+        range: range,
+        valueRenderOption: 'UNFORMATTED_VALUE' // Tenta obter valores sem formatação
+      });
+      
+      if (!response || response.status !== 200) {
+        throw new Error(`Erro ao buscar dados: ${response ? response.status : 'Resposta vazia'}`);
+      }
+      
+      const result = response.result;
+      
+      if (!result || !result.values || result.values.length === 0) {
+        // Não há mais dados para buscar
+        hasMoreData = false;
+        continue;
+      }
+      
+      // Se for o primeiro lote, salva os headers
+      if (startRow === 1) {
+        headers = result.values[0];
+        // Adiciona apenas as linhas de dados (não os headers) ao array final
+        allRows = allRows.concat(result.values.slice(1));
+      } else {
+        // Para os lotes subsequentes, adiciona todas as linhas
+        allRows = allRows.concat(result.values);
+      }
+      
+      logDebug(`Lote recebido: ${result.values.length} linhas. Total acumulado: ${allRows.length}`);
+      
+      // Verifica se recebemos menos linhas que o tamanho do lote, o que indica que não há mais dados
+      if (result.values.length < batchSize) {
+        hasMoreData = false;
+      } else {
+        // Avança para o próximo lote
+        startRow += batchSize;
+      }
     }
     
-    const result = response.result;
-    
-    if (!result || !result.values) {
-      logDebug(`Planilha ${sheetName} está vazia ou não contém dados`);
+    // Se não encontramos dados ou apenas headers
+    if (allRows.length === 0 || !headers) {
+      logDebug(`Planilha ${sheetName} está vazia ou não contém dados suficientes`);
       return [];
     }
     
-    if (result.values.length < 2) {
-      logDebug(`Planilha ${sheetName} não tem dados suficientes (apenas cabeçalho)`);
-      return [];
-    }
+    logDebug(`Total de linhas obtidas para "${correctSheetName}": ${allRows.length}`);
     
     // Converte os dados para um formato de objetos
-    const data = convertToObjects(result.values);
+    const data = allRows.map((row, rowIndex) => {
+      const item = {};
+      headers.forEach((header, index) => {
+        // Verifica se o header é válido antes de usar como chave
+        if (header && typeof header === 'string') {
+          const value = index < row.length ? row[index] : '';
+          
+          // Verifica se o valor é '999' ou 999, que pode indicar um valor limitado
+          if (value === '999' || value === 999) {
+            console.warn(`Valor possivelmente limitado encontrado na planilha: ${header}:`, value, 'na linha:', rowIndex + 2);
+          }
+          
+          item[header] = value;
+        }
+      });
+      return item;
+    });
     
-    logDebug(`Recebidos ${data.length} registros para ${sheetName}`);
+    logDebug(`Convertidos ${data.length} registros para objetos`);
     return data;
   } catch (error) {
     // Verifica se é um erro de formato de range

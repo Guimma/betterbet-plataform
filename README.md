@@ -14,6 +14,21 @@ Acesse a versão online do projeto: [BetterBet Dashboard](https://guimma.github.
 - Previsões de resultados com base em modelos estatísticos
 - Detalhes de partidas com gráficos comparativos
 
+## Branding e Identidade Visual
+
+O BetterBet utiliza uma identidade visual moderna e profissional:
+
+### Logos
+- **Logo Icon**: `logo_icon.svg` - Ícone principal da marca
+- **Logo Name**: `logo_name.svg` - Nome da marca em formato vetorial
+
+### Paleta de Cores
+- **Azul Principal**: `#2767e2` - Usado para elementos principais e interativos
+- **Azul Escuro**: `#0c2544` - Usado para fundos e elementos secundários
+- **Vermelho**: `#ff0000` - Usado como cor de destaque/acento
+- **Verde**: `#27ae60` - Usado para indicadores positivos/sucesso
+- **Amarelo**: `#f39c12` - Usado para alertas e avisos
+
 ## Tecnologias Utilizadas
 
 - React 18
