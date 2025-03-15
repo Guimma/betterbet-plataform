@@ -13,6 +13,7 @@ Acesse a versão online do projeto: [BetterBet Dashboard](https://guimma.github.
 - Listagem de partidas com estatísticas detalhadas
 - Previsões de resultados com base em modelos estatísticos
 - Detalhes de partidas com gráficos comparativos
+- Análise de tendências históricas
 
 ## Branding e Identidade Visual
 
