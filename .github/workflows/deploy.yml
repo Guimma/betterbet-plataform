@@ -1,0 +1,51 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+
+# Configuração de permissões necessárias
+permissions:
+  contents: write
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v4 # Usando a versão mais recente da action de checkout
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4 # Usando a versão mais recente da action de Node.js
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci # Instala as dependências usando o modo CI (mais rápido e determinístico)
+
+      - name: Build
+        run: npm run build # Executa o script de build definido no package.json
+        env:
+          CI: false # Permite que o build continue mesmo com warnings do ESLint
+          # Variáveis de ambiente do Google Sheets
+          REACT_APP_SPREADSHEET_ID: ${{ secrets.REACT_APP_SPREADSHEET_ID }}
+          REACT_APP_GOOGLE_API_KEY: ${{ secrets.REACT_APP_GOOGLE_API_KEY }}
+          REACT_APP_GOOGLE_CLIENT_ID: ${{ secrets.REACT_APP_GOOGLE_CLIENT_ID }}
+
+      - name: Create necessary files
+        run: |
+          touch build/.nojekyll
+          echo "guimma.github.io/betterbet-plataform" > build/CNAME
+          cp public/404.html build/
+          ls -la build/
+          echo "Conteúdo do index.html:"
+          cat build/index.html | grep -i "src="
+
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: build # A pasta que será implantada no GitHub Pages
+          branch: gh-pages # A branch para onde os arquivos de build serão enviados
+          clean: true # Remove arquivos antigos da branch gh-pages antes do deploy 

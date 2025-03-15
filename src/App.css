@@ -1,0 +1,548 @@
+:root {
+  --primary-color: #2767e2; /* Bright blue from logo */
+  --primary-dark: #0c2544; /* Dark blue from logo */
+  --accent-color: #ff0000; /* Red from logo */
+  --success-color: #27ae60;
+  --warning-color: #f39c12;
+  --danger-color: #ff0000;
+  --bg-color: #f5f7fa;
+  --surface-color: #ffffff;
+  --text-primary: #333333;
+  --text-secondary: #777777;
+  --border-color: #e1e1e1;
+  --background-color: #f5f7fa;
+  --text-color: #333;
+  --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Modo escuro - será aplicado quando o usuário selecionar o modo escuro no sistema */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --primary-color: #2767e2;
+    --primary-dark: #0f2747;
+    --accent-color: #ff3333;
+    --success-color: #2ecc71;
+    --warning-color: #f1c40f;
+    --danger-color: #ff3333;
+    --bg-color: #0c1c32;
+    --surface-color: #13243d;
+    --text-primary: #ffffff;
+    --text-secondary: #c8d6e5;
+    --border-color: #1a2c4a;
+    --background-color: #0c1c32;
+    --text-color: #ffffff;
+    --card-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  }
+}
+
+/* Este seletor será aplicado quando o tema escuro for selecionado na aplicação */
+[data-joy-color-scheme="dark"] {
+  --primary-color: #2767e2;
+  --primary-dark: #0f2747;
+  --accent-color: #ff3333;
+  --success-color: #2ecc71;
+  --warning-color: #f1c40f;
+  --danger-color: #ff3333;
+  --bg-color: #0c1c32;
+  --surface-color: #13243d;
+  --text-primary: #ffffff;
+  --text-secondary: #c8d6e5;
+  --border-color: #1a2c4a;
+  --background-color: #0c1c32;
+  --text-color: #ffffff;
+  --card-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--text-primary);
+  background-color: var(--bg-color);
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.header {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: all 0.3s ease;
+}
+
+.logo-icon {
+  height: 40px;
+  width: auto;
+  transition: all 0.3s ease;
+}
+
+.logo-name {
+  height: 25px;
+  width: auto;
+  margin-left: 8px;
+  transition: all 0.3s ease;
+}
+
+.nav {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.nav a {
+  text-decoration: none;
+  color: var(--text-primary);
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+.nav a:hover, .nav a.active {
+  color: var(--primary-color);
+  background-color: rgba(39, 103, 226, 0.1); /* Primary color with transparency */
+}
+
+.main-content {
+  flex: 1;
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.footer {
+  background-color: var(--primary-color);
+  color: white;
+  text-align: center;
+  padding: 1rem;
+  margin-top: auto;
+}
+
+.card {
+  background-color: var(--surface-color);
+  border-radius: 8px;
+  box-shadow: var(--card-shadow);
+  margin-bottom: 1.5rem;
+  overflow: hidden;
+}
+
+.card-header {
+  padding: 1rem;
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--surface-color);
+}
+
+.card-header h2 {
+  font-size: 1.4rem;
+  color: var(--primary-color);
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+.data-table th, .data-table td {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.data-table th {
+  font-weight: 600;
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+}
+
+.data-table tbody tr:hover {
+  background-color: rgba(39, 103, 226, 0.05); /* Primary color with low opacity */
+}
+
+[data-joy-color-scheme="dark"] .data-table tbody tr:hover {
+  background-color: rgba(39, 103, 226, 0.15); /* Slightly more opacity in dark mode */
+}
+
+.data-table tbody tr:hover {
+  background-color: #f8fafc;
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.badge-success {
+  background-color: var(--success-color);
+  color: white;
+}
+
+.badge-warning {
+  background-color: var(--warning-color);
+  color: white;
+}
+
+.badge-danger {
+  background-color: var(--danger-color);
+  color: white;
+}
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.loading-spinner {
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border-left-color: var(--secondary-color);
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.stat-card {
+  background: white;
+  border-radius: 8px;
+  box-shadow: var(--card-shadow);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.stat-value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--secondary-color);
+  margin: 0.5rem 0;
+}
+
+.stat-label {
+  font-size: 0.9rem;
+  color: #64748b;
+}
+
+.search-bar {
+  margin-bottom: 1.5rem;
+  width: 100%;
+  max-width: 500px;
+}
+
+.search-bar input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  list-style: none;
+  margin-top: 1.5rem;
+}
+
+.pagination button {
+  margin: 0 0.25rem;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--border-color);
+  background-color: white;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+.pagination button:hover {
+  background-color: var(--secondary-color);
+  color: white;
+}
+
+.pagination button.active {
+  background-color: var(--secondary-color);
+  color: white;
+  border-color: var(--secondary-color);
+}
+
+.chart-container {
+  height: 300px;
+  margin-bottom: 2rem;
+}
+
+.match-score-display {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 2rem 0;
+}
+
+.team-info {
+  text-align: center;
+  flex: 1;
+}
+
+.team-score {
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  display: block;
+  margin-top: 0.5rem;
+}
+
+.vs-separator {
+  font-size: 1.5rem;
+  margin: 0 2rem;
+  color: var(--text-color);
+  font-weight: 700;
+}
+
+.prediction-info {
+  background-color: #f8fafc;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-top: 1rem;
+}
+
+.navigation-links {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.navigation-links a {
+  color: var(--secondary-color);
+  text-decoration: none;
+}
+
+.navigation-links a:hover {
+  text-decoration: underline;
+}
+
+.filters-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.filter-buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.filter-buttons button {
+  padding: 0.5rem 1rem;
+  border: none;
+  background-color: var(--surface-color);
+  color: var(--text-primary);
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+.filter-buttons button:hover, .filter-buttons button.active {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.charts-section {
+  margin-bottom: 2rem;
+}
+
+.error-banner {
+  background-color: rgba(255, 51, 51, 0.1);
+  border-left: 4px solid var(--danger-color);
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 4px;
+  color: var(--text-primary);
+}
+
+[data-joy-color-scheme="dark"] .error-banner {
+  background-color: rgba(255, 51, 51, 0.2);
+}
+
+.error-details-button {
+  background-color: #721c24;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  margin-top: 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.8rem;
+}
+
+.error-details-button:hover {
+  background-color: #5a171c;
+}
+
+/* Estilos para autenticação Google */
+.google-auth {
+  margin: 15px 0;
+  display: flex;
+  justify-content: center;
+}
+
+.auth-button {
+  padding: 10px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-button {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+}
+
+.login-button:hover {
+  background-color: var(--primary-dark);
+}
+
+.logout-button {
+  background-color: transparent;
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+}
+
+.logout-button:hover {
+  background-color: rgba(255, 0, 0, 0.1); /* Red with transparency */
+}
+
+.user-profile {
+  display: flex;
+  align-items: center;
+}
+
+.user-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.user-name {
+  font-size: 14px;
+  color: #333;
+  margin-right: 15px;
+}
+
+.auth-error {
+  color: #d32f2f;
+  padding: 10px;
+  border: 1px solid #ffcdd2;
+  background-color: #ffebee;
+  border-radius: 4px;
+  margin: 10px 0;
+  text-align: center;
+}
+
+.auth-error button {
+  background-color: #d32f2f;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  margin-top: 8px;
+  cursor: pointer;
+}
+
+.auth-error button:hover {
+  background-color: #b71c1c;
+}
+
+/* Banner de autenticação requerida */
+.auth-required-banner {
+  background-color: rgba(39, 103, 226, 0.1);
+  border-left: 4px solid var(--primary-color);
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 4px;
+  text-align: center;
+}
+
+[data-joy-color-scheme="dark"] .auth-required-banner {
+  background-color: rgba(39, 103, 226, 0.2);
+}
+
+/* Ajuste para o contêiner de autenticação na barra de navegação */
+.auth-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Ajustes responsivos para o cabeçalho */
+@media (max-width: 768px) {
+  .header {
+    padding: 1rem;
+    flex-direction: column;
+  }
+
+  .nav {
+    margin-top: 1rem;
+  }
+  
+  .logo-icon {
+    height: 36px;
+  }
+  
+  .logo-name {
+    height: 22px;
+  }
+
+  .auth-container {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+} 
