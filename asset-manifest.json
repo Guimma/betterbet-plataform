@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/betterbet-plataform/static/css/main.320d8013.css",
-    "main.js": "/betterbet-plataform/static/js/main.15fb07b8.js",
+    "main.css": "/betterbet-plataform/static/css/main.7f694442.css",
+    "main.js": "/betterbet-plataform/static/js/main.59c6f66e.js",
     "static/js/453.4ff89187.chunk.js": "/betterbet-plataform/static/js/453.4ff89187.chunk.js",
     "index.html": "/betterbet-plataform/index.html",
-    "main.320d8013.css.map": "/betterbet-plataform/static/css/main.320d8013.css.map",
-    "main.15fb07b8.js.map": "/betterbet-plataform/static/js/main.15fb07b8.js.map",
+    "main.7f694442.css.map": "/betterbet-plataform/static/css/main.7f694442.css.map",
+    "main.59c6f66e.js.map": "/betterbet-plataform/static/js/main.59c6f66e.js.map",
     "453.4ff89187.chunk.js.map": "/betterbet-plataform/static/js/453.4ff89187.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.320d8013.css",
-    "static/js/main.15fb07b8.js"
+    "static/css/main.7f694442.css",
+    "static/js/main.59c6f66e.js"
   ]
 }
